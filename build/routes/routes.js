@@ -83,7 +83,7 @@ class DatoRoutes {
     //     })
     // };
     misRutas() {
-        this._router.get('/', this.getMangas);
+        this._router.get('/', this.getSocios);
     }
 }
 const obj = new DatoRoutes();
