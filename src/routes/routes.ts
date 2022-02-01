@@ -1,6 +1,7 @@
 import { query, Request, Response, Router } from 'express';
 import { SocioModel } from '../model/Socios';
 import { db } from '../database/database';
+import { Socios } from '../classes/sociosClass';
 
 class DatoRoutes {
 	private _router: Router;
@@ -28,16 +29,20 @@ class DatoRoutes {
 		await db.conectarBD().then(async () => {
 				let id = await this.checklast('Socios');
 			    let socioReceived = req.body;
-				res.send(req.body)
-				// let mangaReceived = new SocioModel(req.body);
-
-				// mangaReceived.save((err: any, result: any) => {
-				// 	if (err) {
-				// 		res.send(err);
-				// 	}
-
-				
-				// });
+				let fecha = this.getDate(req.body.dia,req.body.mes,req.body.año)
+				let personalInfo = {
+					Nombre: socioReceived.Nombre,
+					Apellidos: socioReceived.Apellidos,
+					Email: socioReceived.Email,
+					FechaDeNacimiento: fecha,
+					Direccion: socioReceived.Direccion,
+					DNI: socioReceived.DNI,
+					Genero: socioReceived.genre,
+					NumeroTlf: socioReceived.telefono
+				  }
+			    let socio = new Socios(personalInfo,id);
+				let saver = new SocioModel(socio)
+				saver.save().then(()=> res.send('guardado')).catch(()=>res.send('ha ocurrido un error'))
 			});
 		db.desconectarBD();
 	};
@@ -49,6 +54,10 @@ class DatoRoutes {
 				return lastId.Socios_id + 1
 		}
 	
+	}
+
+	getDate(day: string,month: string,year :string): Date {
+		return new Date(`${year}-${month}-${day}`)
 	}
 
 	// private updateMangas = async (req: Request, res: Response) => {

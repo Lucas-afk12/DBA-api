@@ -7,8 +7,8 @@ export class Socios {
   
     constructor(
       personalInfo: personalInfo,
-      filmsInfo?: jobInfo,
       Socios_id?: number,
+      filmsInfo?: jobInfo,
       points?: points
     ) {
       this.personalInfo = personalInfo;

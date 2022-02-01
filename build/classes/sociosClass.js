@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Socios = void 0;
 class Socios {
-    constructor(personalInfo, filmsInfo, Socios_id, points) {
+    constructor(personalInfo, Socios_id, filmsInfo, points) {
         this.Socios_id = 0;
         this.personalInfo = personalInfo;
         this.createdAt = new Date();

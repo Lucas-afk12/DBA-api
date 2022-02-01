@@ -13,6 +13,7 @@ exports.routes = void 0;
 const express_1 = require("express");
 const Socios_1 = require("../model/Socios");
 const database_1 = require("../database/database");
+const sociosClass_1 = require("../classes/sociosClass");
 class DatoRoutes {
     constructor() {
         this.getSocios = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -30,13 +31,20 @@ class DatoRoutes {
             yield database_1.db.conectarBD().then(() => __awaiter(this, void 0, void 0, function* () {
                 let id = yield this.checklast('Socios');
                 let socioReceived = req.body;
-                res.send(req.body);
-                // let mangaReceived = new SocioModel(req.body);
-                // mangaReceived.save((err: any, result: any) => {
-                // 	if (err) {
-                // 		res.send(err);
-                // 	}
-                // });
+                let fecha = this.getDate(req.body.dia, req.body.mes, req.body.año);
+                let personalInfo = {
+                    Nombre: socioReceived.Nombre,
+                    Apellidos: socioReceived.Apellidos,
+                    Email: socioReceived.Email,
+                    FechaDeNacimiento: fecha,
+                    Direccion: socioReceived.Direccion,
+                    DNI: socioReceived.DNI,
+                    Genero: socioReceived.genre,
+                    NumeroTlf: socioReceived.telefono
+                };
+                let socio = new sociosClass_1.Socios(personalInfo, id);
+                let saver = new Socios_1.SocioModel(socio);
+                saver.save().then(() => res.send('guardado')).catch(() => res.send('ha ocurrido un error'));
             }));
             database_1.db.desconectarBD();
         });
@@ -50,6 +58,9 @@ class DatoRoutes {
     }
     get router() {
         return this._router;
+    }
+    getDate(day, month, year) {
+        return new Date(`${year}-${month}-${day}`);
     }
     // private updateMangas = async (req: Request, res: Response) => {
     // 	await db.conectarBD().then(async () => {
