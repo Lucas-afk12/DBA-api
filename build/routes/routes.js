@@ -12,19 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.routes = void 0;
 const express_1 = require("express");
 const Socios_1 = require("../model/Socios");
-const database_1 = require("../database/database");
 class DatoRoutes {
     constructor() {
         this.getSocios = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            yield database_1.db
-                .conectarBD()
-                .then((b) => __awaiter(this, void 0, void 0, function* () {
-                console.log(b);
-                let query = yield Socios_1.SocioModel.find({});
-                res.send(query);
-            }))
-                .catch((error) => console.log(error));
-            database_1.db.desconectarBD();
+            let query = yield Socios_1.SocioModel.find({});
+            res.send(query);
         });
         this._router = (0, express_1.Router)();
     }
