@@ -17,24 +17,11 @@ class DatoRoutes {
 				res.send(query);
 	};
 
-	// private postMangas = async (req: Request, res: Response) => {
-	// 	await db.conectarBD().then(async () => {
-	// 		if (await MangaModel.findOne({ _id: req.body._id })) {
-	// 			res.send('ese manga ya existe');
-	// 		} else {
-	// 			let mangaReceived = new MangaModel(req.body);
+	private postMangas = async (req: Request, res: Response) => {
 
-	// 			mangaReceived.save((err: any, result: any) => {
-	// 				if (err) {
-	// 					res.send(err);
-	// 				}
-
-	// 				res.send(`${result.Datos.titulo} guardado`);
-	// 			});
-	// 		}
-	// 	});
-	// 	db.desconectarBD();
-	// };
+		console.log(req.body)
+			
+	};
 
 	// private updateMangas = async (req: Request, res: Response) => {
 	// 	await db.conectarBD().then(async () => {
