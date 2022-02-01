@@ -42,7 +42,7 @@ class DatoRoutes {
 				  }
 			    let socio = new Socios(personalInfo,id);
 				let saver = new SocioModel(socio)
-				await saver.save().then(()=> res.send('guardado')).catch((err)=>res.send(err))
+				await saver.save().then(()=> res.send('guardado')).catch((err:any)=>res.send(err))
 			});
 		db.desconectarBD();
 	};

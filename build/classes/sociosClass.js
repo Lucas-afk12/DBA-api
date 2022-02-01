@@ -34,29 +34,11 @@ class Socios {
     get Points() {
         return this.points;
     }
-    set AlquilatedNum(count) {
-        if (this.FilmsInfo)
-            this.FilmsInfo.AlquiladasCount = count;
-    }
-    get AlquilatedNum() {
-        if (this.FilmsInfo)
-            return this.FilmsInfo.AlquiladasCount;
-    }
-    set DevueltasNum(count) {
-        if (this.FilmsInfo)
-            this.FilmsInfo.DevueltasCount = count;
-    }
-    get DevueltasNum() {
-        if (this.FilmsInfo)
-            return this.FilmsInfo.DevueltasCount;
-    }
 }
 exports.Socios = Socios;
 let filmsInfoA = {
     Peliculas_alquiladas: [],
     Peliculas_devueltas: [],
-    AlquiladasCount: 0,
-    DevueltasCount: 0,
 };
 let pointsA = {
     ComprasTotales: [],

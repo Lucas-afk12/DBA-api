@@ -44,20 +44,7 @@ export class Socios {
       return this.points;
     }
   
-    set AlquilatedNum(count) {
-      if (this.FilmsInfo) this.FilmsInfo.AlquiladasCount = count;
-    }
-  
-    get AlquilatedNum() {
-      if (this.FilmsInfo) return this.FilmsInfo.AlquiladasCount;
-    }
-  
-    set DevueltasNum(count) {
-      if (this.FilmsInfo) this.FilmsInfo.DevueltasCount = count;
-    }
-    get DevueltasNum() {
-      if (this.FilmsInfo) return this.FilmsInfo.DevueltasCount;
-    }
+
 
   }
   
@@ -75,8 +62,7 @@ export class Socios {
   interface jobInfo {
     Peliculas_alquiladas: [];
     Peliculas_devueltas: [];
-    AlquiladasCount: any;
-    DevueltasCount: any;
+
   }
   
   interface points {
@@ -88,8 +74,7 @@ export class Socios {
   let filmsInfoA: jobInfo = {
     Peliculas_alquiladas: [],
     Peliculas_devueltas: [],
-    AlquiladasCount: 0,
-    DevueltasCount: 0,
+  
   };
   
   let pointsA: points = {
