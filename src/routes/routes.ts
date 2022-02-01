@@ -13,9 +13,16 @@ class DatoRoutes {
 	}
 
 	private getSocios = async (req: Request, res: Response) => {
+		await db
+			.conectarBD()
+			.then(async (b) => {
+				console.log(b);
 				let query = await SocioModel.find({});
 				res.send(query);
-			};
+			})
+			.catch((error) => console.log(error));
+		db.desconectarBD();
+	};
 
 	// private postMangas = async (req: Request, res: Response) => {
 	// 	await db.conectarBD().then(async () => {
