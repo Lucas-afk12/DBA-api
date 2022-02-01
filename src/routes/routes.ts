@@ -24,24 +24,32 @@ class DatoRoutes {
 		db.desconectarBD();
 	};
 
-	// private postMangas = async (req: Request, res: Response) => {
-	// 	await db.conectarBD().then(async () => {
-	// 		if (await MangaModel.findOne({ _id: req.body._id })) {
-	// 			res.send('ese manga ya existe');
-	// 		} else {
-	// 			let mangaReceived = new MangaModel(req.body);
+	private postSocios = async (req: Request, res: Response) => {
+		await db.conectarBD().then(async () => {
+				let id = await this.checklast('Socios');
+			    let socioReceived = req.body;
+				console.log(req.body)
+				// let mangaReceived = new SocioModel(req.body);
 
-	// 			mangaReceived.save((err: any, result: any) => {
-	// 				if (err) {
-	// 					res.send(err);
-	// 				}
+				// mangaReceived.save((err: any, result: any) => {
+				// 	if (err) {
+				// 		res.send(err);
+				// 	}
 
-	// 				res.send(`${result.Datos.titulo} guardado`);
-	// 			});
-	// 		}
-	// 	});
-	// 	db.desconectarBD();
-	// };
+				
+				// });
+			});
+		db.desconectarBD();
+	};
+
+	checklast = async(model:string) => {
+		
+		if (model == 'Socios'){
+				let lastId = await SocioModel.findOne().sort({$natural:-1})
+				return lastId.Socios_id + 1
+		}
+	
+	}
 
 	// private updateMangas = async (req: Request, res: Response) => {
 	// 	await db.conectarBD().then(async () => {
@@ -84,6 +92,8 @@ class DatoRoutes {
 
 	misRutas() {
 		this._router.get('/socios', this.getSocios);
+		this._router.post('/socios', this.postSocios);
+
 	}
 }
 

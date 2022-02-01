@@ -26,27 +26,31 @@ class DatoRoutes {
                 .catch((error) => console.log(error));
             database_1.db.desconectarBD();
         });
+        this.postSocios = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            yield database_1.db.conectarBD().then(() => __awaiter(this, void 0, void 0, function* () {
+                let id = yield this.checklast('Socios');
+                let socioReceived = req.body;
+                console.log(req.body);
+                // let mangaReceived = new SocioModel(req.body);
+                // mangaReceived.save((err: any, result: any) => {
+                // 	if (err) {
+                // 		res.send(err);
+                // 	}
+                // });
+            }));
+            database_1.db.desconectarBD();
+        });
+        this.checklast = (model) => __awaiter(this, void 0, void 0, function* () {
+            if (model == 'Socios') {
+                let lastId = yield Socios_1.SocioModel.findOne().sort({ $natural: -1 });
+                return lastId.Socios_id + 1;
+            }
+        });
         this._router = (0, express_1.Router)();
     }
     get router() {
         return this._router;
     }
-    // private postMangas = async (req: Request, res: Response) => {
-    // 	await db.conectarBD().then(async () => {
-    // 		if (await MangaModel.findOne({ _id: req.body._id })) {
-    // 			res.send('ese manga ya existe');
-    // 		} else {
-    // 			let mangaReceived = new MangaModel(req.body);
-    // 			mangaReceived.save((err: any, result: any) => {
-    // 				if (err) {
-    // 					res.send(err);
-    // 				}
-    // 				res.send(`${result.Datos.titulo} guardado`);
-    // 			});
-    // 		}
-    // 	});
-    // 	db.desconectarBD();
-    // };
     // private updateMangas = async (req: Request, res: Response) => {
     // 	await db.conectarBD().then(async () => {
     // 		if (await MangaModel.findOne({ _id: req.params.mangaID })) {
@@ -84,6 +88,7 @@ class DatoRoutes {
     // };
     misRutas() {
         this._router.get('/socios', this.getSocios);
+        this._router.post('/socios', this.postSocios);
     }
 }
 const obj = new DatoRoutes();
