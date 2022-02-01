@@ -28,7 +28,7 @@ class DatoRoutes {
 		await db.conectarBD().then(async () => {
 				let id = await this.checklast('Socios');
 			    let socioReceived = req.body;
-				console.log(req.body)
+				res.send(req.body)
 				// let mangaReceived = new SocioModel(req.body);
 
 				// mangaReceived.save((err: any, result: any) => {

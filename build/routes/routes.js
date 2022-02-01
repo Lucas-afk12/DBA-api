@@ -30,7 +30,7 @@ class DatoRoutes {
             yield database_1.db.conectarBD().then(() => __awaiter(this, void 0, void 0, function* () {
                 let id = yield this.checklast('Socios');
                 let socioReceived = req.body;
-                console.log(req.body);
+                res.send(req.body);
                 // let mangaReceived = new SocioModel(req.body);
                 // mangaReceived.save((err: any, result: any) => {
                 // 	if (err) {
