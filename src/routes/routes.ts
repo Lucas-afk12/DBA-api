@@ -15,13 +15,26 @@ class DatoRoutes {
 	private getSocios = async (req: Request, res: Response) => {
 				let query = await SocioModel.find({});
 				res.send(query);
-	};
+			};
 
-	private postMangas = async (req: Request, res: Response) => {
+	// private postMangas = async (req: Request, res: Response) => {
+	// 	await db.conectarBD().then(async () => {
+	// 		if (await MangaModel.findOne({ _id: req.body._id })) {
+	// 			res.send('ese manga ya existe');
+	// 		} else {
+	// 			let mangaReceived = new MangaModel(req.body);
 
-		console.log(req.body)
-			
-	};
+	// 			mangaReceived.save((err: any, result: any) => {
+	// 				if (err) {
+	// 					res.send(err);
+	// 				}
+
+	// 				res.send(`${result.Datos.titulo} guardado`);
+	// 			});
+	// 		}
+	// 	});
+	// 	db.desconectarBD();
+	// };
 
 	// private updateMangas = async (req: Request, res: Response) => {
 	// 	await db.conectarBD().then(async () => {
