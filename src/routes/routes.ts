@@ -83,7 +83,7 @@ class DatoRoutes {
 	// };
 
 	misRutas() {
-		this._router.get('/', this.getSocios);
+		this._router.get('/socios', this.getSocios);
 	}
 }
 
