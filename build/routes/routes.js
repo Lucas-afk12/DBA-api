@@ -87,7 +87,7 @@ class DatoRoutes {
                         .catch((err) => res.send(err));
                 }
                 else {
-                    res.send('ese manga no existe');
+                    res.send('ese socio no existe');
                 }
             }));
         });
