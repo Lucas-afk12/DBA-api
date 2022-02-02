@@ -40,7 +40,7 @@ class DatoRoutes {
                     Direccion: socioReceived.Direccion,
                     DNI: socioReceived.DNI,
                     Genero: socioReceived.genre,
-                    NumeroTlf: socioReceived.telefono
+                    NumeroTlf: socioReceived.NumeroTlf
                 };
                 let socio = new sociosClass_1.Socios(personalInfo, id);
                 let saver = new Socios_1.SocioModel(socio);
