@@ -1,5 +1,5 @@
 export class Socios {
-    private Socios_id: number = 0;
+    private Socios_id?: string = '';
     private personalInfo: personalInfo;
     private filmsInfo: jobInfo;
     private createdAt: Date;
@@ -7,7 +7,7 @@ export class Socios {
   
     constructor(
       personalInfo: personalInfo,
-      Socios_id?: number,
+      Socios_id?: string,
       filmsInfo?: jobInfo,
       points?: points
     ) {

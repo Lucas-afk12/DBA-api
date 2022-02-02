@@ -51,7 +51,9 @@ class DatoRoutes {
 		
 		if (model == 'Socios'){
 				let lastId = await SocioModel.findOne().sort({$natural:-1})
-				return lastId.Socios_id + 1
+				let numero = parseInt(lastId.Socios_id) + 1
+				let string :string = numero.toString(10)
+				return string
 		}
 	
 	}
@@ -89,7 +91,7 @@ class DatoRoutes {
 		await db.conectarBD().then(async () =>{
 			console.log(req.params.ID)
 	        if (await SocioModel.findOne({ Socios_id: req.params.ID })){
-	            await SocioModel.findOneAndDelete({ Socios_id : req.params.ID})
+	            await SocioModel.findOneAndDelete({Socios_id : req.params.ID})
 	            .then((docs) => res.send(`deleted: ${docs}`))
 	            .catch((err) => res.send(err));
 

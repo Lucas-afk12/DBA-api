@@ -51,7 +51,9 @@ class DatoRoutes {
         this.checklast = (model) => __awaiter(this, void 0, void 0, function* () {
             if (model == 'Socios') {
                 let lastId = yield Socios_1.SocioModel.findOne().sort({ $natural: -1 });
-                return lastId.Socios_id + 1;
+                let numero = parseInt(lastId.Socios_id) + 1;
+                let string = numero.toString(10);
+                return string;
             }
         });
         // private updateMangas = async (req: Request, res: Response) => {
