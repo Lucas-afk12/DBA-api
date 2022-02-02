@@ -27,37 +27,38 @@ class DatoRoutes {
 
 	private postSocios = async (req: Request, res: Response) => {
 		await db.conectarBD().then(async () => {
-				let id = await this.checklast('Socios');
-			    let socioReceived = req.body;
-				let fecha = this.getDate(req.body.dia,req.body.mes,req.body.año)
-				let personalInfo = {
-					Nombre: socioReceived.Nombre,
-					Apellidos: socioReceived.Apellidos,
-					Email: socioReceived.Email,
-					FechaDeNacimiento: fecha,
-					Direccion: socioReceived.Direccion,
-					DNI: socioReceived.DNI,
-					Genero: socioReceived.genre,
-					NumeroTlf: socioReceived.telefono
-				  }
-			    let socio = new Socios(personalInfo,id);
-				let saver = new SocioModel(socio)
-				await saver.save().then(()=> res.send('guardado')).catch((err:any)=>res.send(err))
-			});
+			let id = await this.checklast('Socios');
+			let socioReceived = req.body;
+			let fecha = this.getDate(req.body.dia, req.body.mes, req.body.año);
+			let personalInfo = {
+				Nombre: socioReceived.Nombre,
+				Apellidos: socioReceived.Apellidos,
+				Email: socioReceived.Email,
+				FechaDeNacimiento: fecha,
+				Direccion: socioReceived.Direccion,
+				DNI: socioReceived.DNI,
+				Genero: socioReceived.genre,
+				NumeroTlf: socioReceived.telefono,
+			};
+			let socio = new Socios(personalInfo, id);
+			let saver = new SocioModel(socio);
+			await saver
+				.save()
+				.then(() => res.send('guardado'))
+				.catch((err: any) => res.send(err));
+		});
 		db.desconectarBD();
 	};
 
-	checklast = async(model:string) => {
-		
-		if (model == 'Socios'){
-				let lastId = await SocioModel.findOne().sort({$natural:-1})
-				return lastId.Socios_id + 1
+	checklast = async (model: string) => {
+		if (model == 'Socios') {
+			let lastId = await SocioModel.findOne().sort({ $natural: -1 });
+			return lastId.Socios_id + 1;
 		}
-	
-	}
+	};
 
-	getDate(day: string,month: string,year :string): Date {
-		return new Date(`${year}-${month}-${day}`)
+	getDate(day: string, month: string, year: string): Date {
+		return new Date(`${year}-${month}-${day}`);
 	}
 
 	// private updateMangas = async (req: Request, res: Response) => {
@@ -85,24 +86,20 @@ class DatoRoutes {
 	// 	db.desconectarBD();
 	// };
 
-	// private deleteMangas = async (req: Request, res: Response) => {
-	// 	await db.conectarBD().then(async () =>{
-	//         if (await MangaModel.findOne({ _id: req.params.mangaID })){
-
-	//             await MangaModel.findOneAndDelete({_id : req.params.mangaID})
-	//             .then((docs) => res.send(`deleted: ${docs}`))
-	//             .catch((err) => res.send(err));
-
-	//         } else {
-	//             res.send('ese manga no existe');
-	//         }
-	//     })
-	// };
+	private deleteSocios = async (req: Request, res: Response) => {
+		if (await SocioModel.findOne({ _id: req.params.ID })) {
+			await SocioModel.findOneAndDelete({ _id: req.params.ID })
+				.then((docs) => res.send(`deleted: ${docs}`))
+				.catch((err) => res.send(err));
+		} else {
+			res.send('ese manga no existe');
+		}
+	};
 
 	misRutas() {
 		this._router.get('/socios', this.getSocios);
 		this._router.post('/socios', this.postSocios);
-
+		this._router.delete('/socios/:ID', this.deleteSocios);
 	}
 }
 
