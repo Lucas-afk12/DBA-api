@@ -38,7 +38,7 @@ class DatoRoutes {
 					Direccion: socioReceived.Direccion,
 					DNI: socioReceived.DNI,
 					Genero: socioReceived.genre,
-					NumeroTlf: socioReceived.telefono
+					NumeroTlf: socioReceived.NumeroTlf
 				  }
 			    let socio = new Socios(personalInfo,id);
 				let saver = new SocioModel(socio)
@@ -89,7 +89,7 @@ class DatoRoutes {
 		await db.conectarBD().then(async () =>{
 			console.log(req.params.ID)
 	        if (await SocioModel.findOne({ Socios_id: req.params.ID })){
-	            await SocioModel.findOneAndDelete({Socios_id : req.params.ID})
+	            await SocioModel.findOneAndDelete({ Socios_id : req.params.ID})
 	            .then((docs) => res.send(`deleted: ${docs}`))
 	            .catch((err) => res.send(err));
 
