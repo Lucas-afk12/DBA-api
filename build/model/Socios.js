@@ -8,6 +8,6 @@ const SocioSchema = new mongoose_1.Schema({
     personalInfo: { type: Object },
     filmsInfo: { type: Object },
     puntos: { type: Object },
-    Socios_id: { type: Number },
+    Socios_id: { type: String },
 });
 exports.SocioModel = (0, mongoose_1.model)('socios', SocioSchema);

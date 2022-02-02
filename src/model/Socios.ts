@@ -7,7 +7,7 @@ createdAt:{type:Date},
 personalInfo:{type:Object},
 filmsInfo:{type:Object},
 puntos:{type:Object},
-Socios_id:{type:Number},
+Socios_id:{type:String},
 })
 
 export const SocioModel = model('socios', SocioSchema);

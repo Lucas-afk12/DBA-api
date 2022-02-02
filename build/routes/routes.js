@@ -54,6 +54,43 @@ class DatoRoutes {
                 return lastId.Socios_id + 1;
             }
         });
+        // private updateMangas = async (req: Request, res: Response) => {
+        // 	await db.conectarBD().then(async () => {
+        // 		if (await MangaModel.findOne({ _id: req.params.mangaID })) {
+        // 			let value = req.params.value;
+        // 			if (value) {
+        // 				await MangaModel.findOneAndUpdate(
+        // 					{ _id: req.params.mangaID },
+        // 					{ 'Datos.titulo': value }
+        // 				)
+        // 					.then(() => res.send(`${req.params.mangaID} actualizado`))
+        // 					.catch(() =>
+        // 						res.send(
+        // 							`ha habido un error actualizando el manga ${req.params.mangaID}`
+        // 						)
+        // 					);
+        // 			} else {
+        // 				res.send('No puedes poner un titulo en blanco');
+        // 			}
+        // 		} else {
+        // 			res.send('ese manga no existe');
+        // 		}
+        // 	});
+        // 	db.desconectarBD();
+        // };
+        this.deleteSocios = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            yield database_1.db.conectarBD().then(() => __awaiter(this, void 0, void 0, function* () {
+                console.log(req.params.ID);
+                if (yield Socios_1.SocioModel.findOne({ Socios_id: req.params.ID })) {
+                    yield Socios_1.SocioModel.findOneAndDelete({ Socios_id: req.params.ID })
+                        .then((docs) => res.send(`deleted: ${docs}`))
+                        .catch((err) => res.send(err));
+                }
+                else {
+                    res.send('ese manga no existe');
+                }
+            }));
+        });
         this._router = (0, express_1.Router)();
     }
     get router() {
@@ -62,44 +99,10 @@ class DatoRoutes {
     getDate(day, month, year) {
         return new Date(`${year}-${month}-${day}`);
     }
-    // private updateMangas = async (req: Request, res: Response) => {
-    // 	await db.conectarBD().then(async () => {
-    // 		if (await MangaModel.findOne({ _id: req.params.mangaID })) {
-    // 			let value = req.params.value;
-    // 			if (value) {
-    // 				await MangaModel.findOneAndUpdate(
-    // 					{ _id: req.params.mangaID },
-    // 					{ 'Datos.titulo': value }
-    // 				)
-    // 					.then(() => res.send(`${req.params.mangaID} actualizado`))
-    // 					.catch(() =>
-    // 						res.send(
-    // 							`ha habido un error actualizando el manga ${req.params.mangaID}`
-    // 						)
-    // 					);
-    // 			} else {
-    // 				res.send('No puedes poner un titulo en blanco');
-    // 			}
-    // 		} else {
-    // 			res.send('ese manga no existe');
-    // 		}
-    // 	});
-    // 	db.desconectarBD();
-    // };
-    // private deleteMangas = async (req: Request, res: Response) => {
-    // 	await db.conectarBD().then(async () =>{
-    //         if (await MangaModel.findOne({ _id: req.params.mangaID })){
-    //             await MangaModel.findOneAndDelete({_id : req.params.mangaID})
-    //             .then((docs) => res.send(`deleted: ${docs}`))
-    //             .catch((err) => res.send(err));
-    //         } else {
-    //             res.send('ese manga no existe');
-    //         }
-    //     })
-    // };
     misRutas() {
         this._router.get('/socios', this.getSocios);
         this._router.post('/socios', this.postSocios);
+        this._router.delete('/socios/:ID', this.deleteSocios);
     }
 }
 const obj = new DatoRoutes();
