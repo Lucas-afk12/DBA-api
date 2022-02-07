@@ -61,7 +61,8 @@ class DatoRoutes {
 		if (model == 'Empleados') {
 				let lastId = await EmpleadosModel.findOne().sort({$natural:-1})
 				if (lastId){
-				let numero = parseInt(lastId.Socios_id) + 1
+					console.log(lastId)
+				let numero = parseInt(lastId.Empleado_id) + 1
 				let string :string = numero.toString(10)
 				return string }else{
 				return "0"
