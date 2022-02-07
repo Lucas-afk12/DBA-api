@@ -14,6 +14,8 @@ const express_1 = require("express");
 const Socios_1 = require("../model/Socios");
 const database_1 = require("../database/database");
 const sociosClass_1 = require("../classes/sociosClass");
+const empleadosClass_1 = require("../classes/empleadosClass");
+const Empleado_1 = require("../model/Empleado");
 class DatoRoutes {
     constructor() {
         this.getSocios = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -30,17 +32,17 @@ class DatoRoutes {
         this.postSocios = (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield database_1.db.conectarBD().then(() => __awaiter(this, void 0, void 0, function* () {
                 let id = yield this.checklast('Socios');
-                let socioReceived = req.body;
+                let EmpleadosReceived = req.body;
                 let fecha = this.getDate(req.body.dia, req.body.mes, req.body.año);
                 let personalInfo = {
-                    Nombre: socioReceived.Nombre,
-                    Apellidos: socioReceived.Apellidos,
-                    Email: socioReceived.Email,
+                    Nombre: EmpleadosReceived.Nombre,
+                    Apellidos: EmpleadosReceived.Apellidos,
+                    Email: EmpleadosReceived.Email,
                     FechaDeNacimiento: fecha,
-                    Direccion: socioReceived.Direccion,
-                    DNI: socioReceived.DNI,
-                    Genero: socioReceived.genre,
-                    NumeroTlf: socioReceived.NumeroTlf
+                    Direccion: EmpleadosReceived.Direccion,
+                    DNI: EmpleadosReceived.DNI,
+                    Genero: EmpleadosReceived.genre,
+                    NumeroTlf: EmpleadosReceived.NumeroTlf
                 };
                 let socio = new sociosClass_1.Socios(personalInfo, id);
                 let saver = new Socios_1.SocioModel(socio);
@@ -51,6 +53,12 @@ class DatoRoutes {
         this.checklast = (model) => __awaiter(this, void 0, void 0, function* () {
             if (model == 'Socios') {
                 let lastId = yield Socios_1.SocioModel.findOne().sort({ $natural: -1 });
+                let numero = parseInt(lastId.Socios_id) + 1;
+                let string = numero.toString(10);
+                return string;
+            }
+            if (model == 'Empleados') {
+                let lastId = yield Empleado_1.EmpleadosModel.findOne().sort({ $natural: -1 });
                 let numero = parseInt(lastId.Socios_id) + 1;
                 let string = numero.toString(10);
                 return string;
@@ -93,6 +101,33 @@ class DatoRoutes {
                 }
             }));
         });
+        this.postEmpleados = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            yield database_1.db.conectarBD().then(() => __awaiter(this, void 0, void 0, function* () {
+                let id = yield this.checklast('Empleados');
+                let EmpleadosReceived = req.body;
+                let fecha = this.getDate(req.body.dia, req.body.mes, req.body.año);
+                let personalInfo = {
+                    Nombre: EmpleadosReceived.Nombre,
+                    Apellidos: EmpleadosReceived.Apellidos,
+                    Email: EmpleadosReceived.Email,
+                    FechaDeNacimiento: fecha,
+                    Direccion: EmpleadosReceived.Direccion,
+                    DNI: EmpleadosReceived.DNI,
+                    Genero: EmpleadosReceived.genre,
+                    NumeroTlf: EmpleadosReceived.NumeroTlf,
+                };
+                let jobInfo = {
+                    sueldo: parseInt(EmpleadosReceived.Sueldo),
+                    cantidadDeVentas: 0,
+                    Antiguedad: 0,
+                    plus: 0,
+                };
+                let empleado = new empleadosClass_1.empleados(personalInfo, jobInfo, id);
+                let saver = new Empleado_1.EmpleadosModel(empleado);
+                yield saver.save().then(() => res.send('guardado')).catch((err) => res.send(err));
+            }));
+            database_1.db.desconectarBD();
+        });
         this._router = (0, express_1.Router)();
     }
     get router() {
@@ -105,6 +140,8 @@ class DatoRoutes {
         this._router.get('/socios', this.getSocios);
         this._router.post('/socios', this.postSocios);
         this._router.delete('/socios/:ID', this.deleteSocios);
+        // this._router.get('/empleados', this.getEmpleados);
+        this._router.get('/empleados', this.postEmpleados);
     }
 }
 const obj = new DatoRoutes();
