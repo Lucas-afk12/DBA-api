@@ -59,9 +59,14 @@ class DatoRoutes {
             }
             if (model == 'Empleados') {
                 let lastId = yield Empleado_1.EmpleadosModel.findOne().sort({ $natural: -1 });
-                let numero = parseInt(lastId.Socios_id) + 1;
-                let string = numero.toString(10);
-                return string;
+                if (lastId) {
+                    let numero = parseInt(lastId.Socios_id) + 1;
+                    let string = numero.toString(10);
+                    return string;
+                }
+                else {
+                    return "0";
+                }
             }
         });
         // private updateMangas = async (req: Request, res: Response) => {

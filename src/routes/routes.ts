@@ -60,9 +60,12 @@ class DatoRoutes {
 	
 		if (model == 'Empleados') {
 				let lastId = await EmpleadosModel.findOne().sort({$natural:-1})
+				if (lastId){
 				let numero = parseInt(lastId.Socios_id) + 1
 				let string :string = numero.toString(10)
-				return string
+				return string }else{
+				return "0"
+			}
 		}
 	}
 
@@ -133,7 +136,6 @@ class DatoRoutes {
     			Antiguedad: 0,
     			plus: 0,
 			}
-
 			let empleado = new empleados(personalInfo,jobInfo,id);
 			let saver = new EmpleadosModel(empleado)
 			await saver.save().then(()=> res.send('guardado')).catch((err:any)=>res.send(saver))
