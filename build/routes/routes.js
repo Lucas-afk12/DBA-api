@@ -141,7 +141,7 @@ class DatoRoutes {
         this._router.post('/socios', this.postSocios);
         this._router.delete('/socios/:ID', this.deleteSocios);
         // this._router.get('/empleados', this.getEmpleados);
-        this._router.get('/empleados', this.postEmpleados);
+        this._router.post('/empleados', this.postEmpleados);
     }
 }
 const obj = new DatoRoutes();
