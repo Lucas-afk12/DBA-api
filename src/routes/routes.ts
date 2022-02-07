@@ -136,7 +136,7 @@ class DatoRoutes {
 
 			let empleado = new empleados(personalInfo,jobInfo,id);
 			let saver = new EmpleadosModel(empleado)
-			await saver.save().then(()=> res.send('guardado')).catch((err:any)=>res.send(err))
+			await saver.save().then(()=> res.send('guardado')).catch((err:any)=>res.send(saver))
 		});
 	db.desconectarBD();
 };
