@@ -10,6 +10,7 @@ class empleados {
         if (Empleado_id) {
             this.Empleado_id = Empleado_id;
         }
+        this.tipo = "empleados";
     }
 }
 exports.empleados = empleados;

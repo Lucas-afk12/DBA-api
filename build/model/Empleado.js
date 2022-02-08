@@ -8,5 +8,6 @@ const EmpleadoSchema = new mongoose_1.Schema({
     personalInfo: { type: Object },
     jobInfo: { type: Object },
     Empleado_id: { type: String },
+    tipo: { type: String }
 });
 exports.EmpleadosModel = (0, mongoose_1.model)('empleados', EmpleadoSchema);

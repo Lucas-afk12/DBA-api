@@ -3,6 +3,7 @@ export class empleados {
     personalInfo: personalInfo;
     jobInfo: jobInfo;
     createdAt: Date;
+    tipo: string ;
   
     constructor(
       personalInfo: personalInfo,
@@ -15,6 +16,7 @@ export class empleados {
       if (Empleado_id) {
           this.Empleado_id = Empleado_id;
         }
+      this.tipo="empleados"
     }
   }
   
