@@ -107,6 +107,17 @@ class DatoRoutes {
                 }
             }));
         });
+        this.getEmpleados = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            yield database_1.db
+                .conectarBD()
+                .then((b) => __awaiter(this, void 0, void 0, function* () {
+                console.log(b);
+                let query = yield Empleado_1.EmpleadosModel.find({});
+                res.send(query);
+            }))
+                .catch((error) => console.log(error));
+            database_1.db.desconectarBD();
+        });
         this.postEmpleados = (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield database_1.db.conectarBD().then(() => __awaiter(this, void 0, void 0, function* () {
                 let id = yield this.checklast('Empleados');
@@ -146,7 +157,7 @@ class DatoRoutes {
         this._router.get('/socios', this.getSocios);
         this._router.post('/socios', this.postSocios);
         this._router.delete('/socios/:ID', this.deleteSocios);
-        // this._router.get('/empleados', this.getEmpleados);
+        this._router.get('empleados', this.getEmpleados);
         this._router.post('/empleados', this.postEmpleados);
     }
 }

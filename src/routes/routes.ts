@@ -114,6 +114,17 @@ class DatoRoutes {
 	};
 
 	
+	private getEmpleados = async (req: Request, res: Response) => {
+		await db
+			.conectarBD()
+			.then(async (b) => {
+				console.log(b);
+				let query = await EmpleadosModel.find({});
+				res.send(query);
+			})
+			.catch((error) => console.log(error));
+		db.desconectarBD();
+	};
 
 
 	private postEmpleados = async (req: Request, res: Response) =>{
@@ -151,7 +162,8 @@ class DatoRoutes {
 		this._router.post('/socios', this.postSocios);
 		this._router.delete('/socios/:ID',this.deleteSocios);
 
-		// this._router.get('/empleados', this.getEmpleados);
+		
+		this._router.get('empleados',this.getEmpleados)
 		this._router.post('/empleados', this.postEmpleados);
 
 	}
