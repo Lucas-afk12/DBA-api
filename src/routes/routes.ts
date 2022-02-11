@@ -130,7 +130,7 @@ class DatoRoutes {
 		await db
 		.conectarBD()
 		.then(async () => {
-			res.send(req)
+			res.send(req.params)
 		})
 		.catch((error) => console.log(error));
 	db.desconectarBD();

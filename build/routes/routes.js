@@ -122,7 +122,7 @@ class DatoRoutes {
             yield database_1.db
                 .conectarBD()
                 .then(() => __awaiter(this, void 0, void 0, function* () {
-                res.send(req);
+                res.send(req.params);
             }))
                 .catch((error) => console.log(error));
             database_1.db.desconectarBD();
