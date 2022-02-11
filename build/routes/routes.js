@@ -118,6 +118,15 @@ class DatoRoutes {
                 .catch((error) => console.log(error));
             database_1.db.desconectarBD();
         });
+        this.verifyCode = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            yield database_1.db
+                .conectarBD()
+                .then(() => __awaiter(this, void 0, void 0, function* () {
+                res.send(req.body);
+            }))
+                .catch((error) => console.log(error));
+            database_1.db.desconectarBD();
+        });
         this.postEmpleados = (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield database_1.db.conectarBD().then(() => __awaiter(this, void 0, void 0, function* () {
                 let id = yield this.checklast('Empleados');
@@ -159,6 +168,7 @@ class DatoRoutes {
         this._router.delete('/socios/:ID', this.deleteSocios);
         this._router.get('/empleados', this.getEmpleados);
         this._router.post('/empleados', this.postEmpleados);
+        this._router.post('/empleados/verify', this.verifyCode);
     }
 }
 const obj = new DatoRoutes();

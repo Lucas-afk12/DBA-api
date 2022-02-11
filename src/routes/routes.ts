@@ -126,6 +126,16 @@ class DatoRoutes {
 		db.desconectarBD();
 	};
 
+	private verifyCode = async (req:Request , res: Response) => {
+		await db
+		.conectarBD()
+		.then(async () => {
+			res.send(req.body)
+		})
+		.catch((error) => console.log(error));
+	db.desconectarBD();
+	}
+
 
 	private postEmpleados = async (req: Request, res: Response) =>{
 		await db.conectarBD().then(async () => {
@@ -157,6 +167,8 @@ class DatoRoutes {
 
 
 
+
+
 	misRutas() {
 		this._router.get('/socios', this.getSocios);
 		this._router.post('/socios', this.postSocios);
@@ -165,6 +177,7 @@ class DatoRoutes {
 
 		this._router.get('/empleados',this.getEmpleados)
 		this._router.post('/empleados', this.postEmpleados);
+		this._router.post('/empleados/verify', this.verifyCode);
 
 	}
 }
