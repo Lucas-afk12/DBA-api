@@ -33,7 +33,7 @@ export class empleados {
   
   interface jobInfo {
     sueldo: number;
-    cantidadDeVentas: number;
+    cantidadDeVentas : Array<Number>;
     Antiguedad: number;
     plus: number
   }
